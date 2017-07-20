@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 
+#import "NBNetwork.h"
+
 @interface AppDelegate ()
 
 @end
@@ -18,11 +20,36 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    ViewController *vc = [[ViewController alloc] init];
+    //
+    NBRespFilter *successFilter = [[NBRespFilter alloc] init];
+    successFilter.key =  @"errorCode";
+    successFilter.value =  @"0";
+    
+    //
+    NBRespFilter *tokenOutOfTimeFilter = [[NBRespFilter alloc] init];
+    tokenOutOfTimeFilter.key =  @"errorCode";
+    tokenOutOfTimeFilter.value =  @"4";
+    [tokenOutOfTimeFilter setFilterAction:^{
+        
+        //通知用户重新登录
+        
+    }];
+    
+    //
+    NBRespFilter *otherFilter = [[NBRespFilter alloc] init];
+    otherFilter.key =  @"errorCode";
+    otherFilter.value =  @"4";
+
+    
+    //
+    NBNetworkConfig *config = [NBNetworkConfig config];
+    config.successFilter = successFilter;
+    [config.abnormalRespFilter addObjectsFromArray:@[tokenOutOfTimeFilter,otherFilter]];
     
     
-    // Override point for customization after application launch.
+    //
     return YES;
+    
 }
 
 

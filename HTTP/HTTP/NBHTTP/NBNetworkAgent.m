@@ -8,7 +8,8 @@
 
 #import "NBNetworkAgent.h"
 #import "AFNetworking.h"
-
+#import "NBNetworkConfig.m"
+#import "NBRespFilter.h"
 #import "NBBaseRequest.h"
 
 @implementation NBNetworkAgent
@@ -34,15 +35,16 @@
     NSString *URLString = nil;
     id parameters = req.parameters;
     
-    if ([req.URLString hasPrefix:@"http"] || [req.URLString hasPrefix:@"https"]) {
+    if ([NBNetworkConfig config].baseUrl) {
         
-        URLString = req.URLString;
+        URLString = [[NBNetworkConfig config].baseUrl stringByAppendingString:req.URLString];
         
     } else {
         
-        URLString = [@"" stringByAppendingString:req.URLString];
+        URLString = req.URLString;
         
     }
+
     
     //转换parameters
     if ([req respondsToSelector:@selector(convertParameters)]) {
@@ -110,12 +112,101 @@
     req.task = task;
     req.error = nil;
     
-    //缓存
+    //0.是否满则全局单一成功过滤,满足
+    if (req.whetherSupportSuccessFilterByConfig && [NBNetworkConfig config].successFilter) {
+        
+      [NBNetworkConfig config].successFilter.filterAction = nil;
+      BOOL filterSuccess =  [[NBNetworkConfig config].successFilter checkResp:responseObject];
+        
+        if (filterSuccess) {
+            
+       
+            if (!req.ignoreCache) {
+                
+                [req saveCache];
+                
+            }
+            
+            
+            if (req.success) {
+                
+                req.success(req);
+                
+            }
+            
+            
+            [req clearCompletionBlock];
+            
+        }
+        
+        return;
+    }
+    
+    
+    //1.该请求允许全局的过滤
+    if (req.isFilterRespByConfig) {
+        
+        //检测是否存在需要过滤的内容
+         __block BOOL needFilter = NO;
+        [[NBNetworkConfig config].abnormalRespFilter enumerateObjectsUsingBlock:^(NBRespFilter * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            //网络返回是否满足过滤条件
+            if ([obj checkResp:responseObject]) {
+                
+                [obj filterAction];
+                needFilter = YES;
+                *stop = YES;
+            }
+            
+            
+        }];
+        
+        if (needFilter) {
+            //降级去执行失败的回调
+            req.failure(req);
+            [req clearCompletionBlock];
+            return;
+            
+        }
+        
+    }
+    
+    
+    //2.单个请求设置的过滤条件筛选
+    if (req.respFilter) {
+        //检测是否存在需要过滤的内容
+        __block BOOL needFilter = NO;
+        [req.respFilter enumerateObjectsUsingBlock:^(NBRespFilter * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            //满足一个该请求就要被过滤
+            if ([obj checkResp:responseObject]) {
+                
+                [obj filterAction];
+                needFilter = YES;
+                *stop = YES;
+            }
+            
+            
+        }];
+        
+        if (needFilter) {
+            //降级去执行失败的回调
+            req.failure(req);
+            [req clearCompletionBlock];
+            return;
+            
+        }
+
+    }
+    
+    
+    //3.确定该请求不需要过滤
     if (!req.ignoreCache) {
         
         [req saveCache];
         
     }
+    
     
     if (req.success) {
         
@@ -124,7 +215,8 @@
     }
 
     [req clearCompletionBlock];
-
+    
+    
 }
 
 
@@ -143,7 +235,6 @@
     //
     [req clearCompletionBlock];
 
-    
 }
 
 

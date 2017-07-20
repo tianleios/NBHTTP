@@ -13,13 +13,23 @@
 
 @implementation NBBaseRequest
 
+- (instancetype)init {
+
+    if (self = [super init]) {
+        
+        self.ignoreCache = YES;
+        self.isFilterRespByConfig = YES;
+        self.whetherSupportSuccessFilterByConfig = YES;
+    }
+    
+    return self;
+}
 
 - (void)startWithSuccess:(NBRequestCompletionBlock)success
                  failure:(NBRequestCompletionBlock)failure; {
 
-    self.success = success;
-    self.failure = failure;
 
+    [self setSuccess:success failure:failure];
     [self start];
 }
 
@@ -51,6 +61,7 @@
     self.failure = nil;
 }
 
+
 - (NSDictionary<NSString *,NSString *> *)convertParameters {
 
     return self.parameters;
@@ -70,6 +81,7 @@
     [[NSFileManager defaultManager] createFileAtPath:[self filePath] contents:data attributes:nil];
 
 }
+
 
 - (id)getCache {
 

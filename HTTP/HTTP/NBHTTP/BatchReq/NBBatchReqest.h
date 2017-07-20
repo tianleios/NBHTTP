@@ -17,13 +17,25 @@ typedef void(^NBBatchRequestCompletionBlock)( NBBatchReqest *batchRequest);
 
 @interface NBBatchReqest : NSObject
 
-- (void)addReqFromArray:(NSArray <NBBaseRequest *> *)reqArray;
+- (instancetype)initWithReqArray:(NSArray <NBBaseRequest *>*)reqArray;
 
 @property (nonatomic, copy, readonly) NSArray <NBBaseRequest *> *reqArray;
 
-- (void)start;
+/**
+ 成功回调
+ */
+@property (nonatomic, copy) NBBatchRequestCompletionBlock success;
+
+/**
+ 失败回调
+ */
+@property (nonatomic, copy) NBBatchRequestCompletionBlock failure;
+
+
 
 - (void)startWithSuccess:(NBBatchRequestCompletionBlock)success
                  failure:(NBBatchRequestCompletionBlock)failure;
+
+- (void)clearCompletionBlock;
 
 @end

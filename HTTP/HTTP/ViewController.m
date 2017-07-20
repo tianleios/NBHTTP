@@ -70,8 +70,7 @@
     req2.URLString = @"http://localhost:8080/users";
     
     //
-    NBBatchReqest *batchReq = [[NBBatchReqest alloc] init];
-    [batchReq  addReqFromArray:@[req1,req2]];
+    NBBatchReqest *batchReq = [[NBBatchReqest alloc] initWithReqArray:@[req1,req2]];
     [batchReq startWithSuccess:^(NBBatchReqest *batchRequest) {
         
         NSArray *reqArr = batchRequest.reqArray;

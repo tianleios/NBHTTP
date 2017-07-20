@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class NBBaseRequest;
+@class NBRespFilter;
 
 typedef NS_ENUM(NSInteger, NBRequestMethod) {
     
@@ -21,16 +22,44 @@ typedef void(^NBRequestCompletionBlock)(__kindof NBBaseRequest *request);
 
 @interface NBBaseRequest : NSObject
 
-//请求
+
+- (instancetype)init;
+
+//************************请求***************************//
 @property (nonatomic, assign) NBRequestMethod HTTPMethod;
+
+//default is YES,不进行缓存
 @property (nonatomic, assign) BOOL ignoreCache;
+
+
+
+
 @property (nonatomic, copy) NSString *URLString;
 @property (nonatomic, strong) NSDictionary <NSString *,id> *parameters;
 
-//响应
+
+//************************响应****************************//
 @property (nonatomic, strong) NSURLSessionDataTask *task;
 @property (nonatomic, strong) id responseObject;
 @property (nonatomic, strong) NSError *error;
+
+
+/**
+ 是否接受 config 配置的结果过滤, default is YES. 全局的过滤
+ */
+@property (nonatomic, assign) BOOL whetherSupportSuccessFilterByConfig;
+
+/**
+ 是否接受 config 配置的结果过滤, default is YES. 全局的过滤
+ */
+@property (nonatomic, assign) BOOL isFilterRespByConfig;
+
+
+/**
+ 指定过滤的请求
+ */
+@property (nonatomic, copy) NSArray <NBRespFilter *> *respFilter;
+
 
 /**
  成功回调
@@ -51,15 +80,6 @@ typedef void(^NBRequestCompletionBlock)(__kindof NBBaseRequest *request);
 - (void)startWithSuccess:(NBRequestCompletionBlock)success
                  failure:(NBRequestCompletionBlock)failure;
 
-
-- (void)setSuccess:(NBRequestCompletionBlock)success
-           failure:(NBRequestCompletionBlock)failure;
-
-
-/**
- 请求开始
- */
-- (void)start;
 
 
 /**

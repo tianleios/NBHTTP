@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E0306621F208AFC00565830 /* NBNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0306611F208AFC00565830 /* NBNetworkConfig.m */; };
 		2E15D5091F132D380078D224 /* SubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E15D5081F132D380078D224 /* SubViewController.m */; };
 		2E2B415C1F14B13C00B5CBE7 /* NBNetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B415B1F14B13C00B5CBE7 /* NBNetworkAgent.m */; };
 		2E2B41641F14B3CA00B5CBE7 /* NBBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B415F1F14B3CA00B5CBE7 /* NBBaseRequest.m */; };
@@ -28,6 +29,7 @@
 		2E2B41971F14D1CC00B5CBE7 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B41901F14D1CC00B5CBE7 /* AFURLResponseSerialization.m */; };
 		2E2B41981F14D1CC00B5CBE7 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E2B41921F14D1CC00B5CBE7 /* AFURLSessionManager.m */; };
 		2E66E5231F205863004DDC39 /* NBBatchReqest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E66E5221F205863004DDC39 /* NBBatchReqest.m */; };
+		2E66E5271F2087E4004DDC39 /* NBRespFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E66E5261F2087E4004DDC39 /* NBRespFilter.m */; };
 		2EBE46221F0E22A50058BEC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE46211F0E22A50058BEC8 /* main.m */; };
 		2EBE46251F0E22A50058BEC8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE46241F0E22A50058BEC8 /* AppDelegate.m */; };
 		2EBE46281F0E22A50058BEC8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE46271F0E22A50058BEC8 /* ViewController.m */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E0306601F208AFC00565830 /* NBNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBNetworkConfig.h; sourceTree = "<group>"; };
+		2E0306611F208AFC00565830 /* NBNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBNetworkConfig.m; sourceTree = "<group>"; };
 		2E15D5071F132D380078D224 /* SubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubViewController.h; sourceTree = "<group>"; };
 		2E15D5081F132D380078D224 /* SubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubViewController.m; sourceTree = "<group>"; };
 		2E2B415A1F14B13C00B5CBE7 /* NBNetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBNetworkAgent.h; sourceTree = "<group>"; };
@@ -82,6 +86,8 @@
 		2E2B41921F14D1CC00B5CBE7 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		2E66E5211F205863004DDC39 /* NBBatchReqest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBBatchReqest.h; sourceTree = "<group>"; };
 		2E66E5221F205863004DDC39 /* NBBatchReqest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBBatchReqest.m; sourceTree = "<group>"; };
+		2E66E5251F2087E4004DDC39 /* NBRespFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBRespFilter.h; sourceTree = "<group>"; };
+		2E66E5261F2087E4004DDC39 /* NBRespFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBRespFilter.m; sourceTree = "<group>"; };
 		2EBE461D1F0E22A50058BEC8 /* HTTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HTTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EBE46211F0E22A50058BEC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2EBE46231F0E22A50058BEC8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -109,8 +115,11 @@
 			isa = PBXGroup;
 			children = (
 				2E2B41671F14BD6A00B5CBE7 /* NBNetwork.h */,
+				2E0306601F208AFC00565830 /* NBNetworkConfig.h */,
+				2E0306611F208AFC00565830 /* NBNetworkConfig.m */,
 				2E2B415A1F14B13C00B5CBE7 /* NBNetworkAgent.h */,
 				2E2B415B1F14B13C00B5CBE7 /* NBNetworkAgent.m */,
+				2E66E5241F2086F4004DDC39 /* filter */,
 				2E66E5201F205844004DDC39 /* BatchReq */,
 				2E2B415D1F14B3CA00B5CBE7 /* Req */,
 			);
@@ -183,6 +192,15 @@
 				2E66E5221F205863004DDC39 /* NBBatchReqest.m */,
 			);
 			path = BatchReq;
+			sourceTree = "<group>";
+		};
+		2E66E5241F2086F4004DDC39 /* filter */ = {
+			isa = PBXGroup;
+			children = (
+				2E66E5251F2087E4004DDC39 /* NBRespFilter.h */,
+				2E66E5261F2087E4004DDC39 /* NBRespFilter.m */,
+			);
+			path = filter;
 			sourceTree = "<group>";
 		};
 		2EBE46141F0E22A50058BEC8 = {
@@ -313,6 +331,8 @@
 				2E2B415C1F14B13C00B5CBE7 /* NBNetworkAgent.m in Sources */,
 				2E2B41841F14CF8900B5CBE7 /* YTKRequest.m in Sources */,
 				2E2B417E1F14CF8900B5CBE7 /* YTKBatchRequestAgent.m in Sources */,
+				2E66E5271F2087E4004DDC39 /* NBRespFilter.m in Sources */,
+				2E0306621F208AFC00565830 /* NBNetworkConfig.m in Sources */,
 				2E2B41821F14CF8900B5CBE7 /* YTKNetworkConfig.m in Sources */,
 				2E2B417C1F14CF8900B5CBE7 /* YTKBaseRequest.m in Sources */,
 				2E2B41961F14D1CC00B5CBE7 /* AFURLRequestSerialization.m in Sources */,
