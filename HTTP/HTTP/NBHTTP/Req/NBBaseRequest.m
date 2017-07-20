@@ -18,8 +18,8 @@
     if (self = [super init]) {
         
         self.ignoreCache = YES;
-        self.isFilterRespByConfig = YES;
         self.whetherSupportSuccessFilterByConfig = YES;
+        self.whetherSupportAbnormalFilterByConfig = YES;
     }
     
     return self;

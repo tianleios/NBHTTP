@@ -22,9 +22,12 @@
 @property (nonatomic, strong) NBRespFilter *successFilter;
 
 /**
-  异常，为所有请求过滤数据
+ 异常，为所有请求过滤数据
  */
-@property (nonatomic, strong) NSMutableArray <NBRespFilter *> *abnormalRespFilter;
+@property (nonatomic, strong) NBRespFilter *abnormalRespFilter;
+
+
+//@property (nonatomic, strong) NSMutableArray <NBRespFilter *> *abnormalRespFilter;
 
 
 @end

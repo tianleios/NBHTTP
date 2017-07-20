@@ -8,7 +8,7 @@
 
 #import "NBNetworkAgent.h"
 #import "AFNetworking.h"
-#import "NBNetworkConfig.m"
+#import "NBNetworkConfig.h"
 #import "NBRespFilter.h"
 #import "NBBaseRequest.h"
 
@@ -37,7 +37,15 @@
     
     if ([NBNetworkConfig config].baseUrl) {
         
-        URLString = [[NBNetworkConfig config].baseUrl stringByAppendingString:req.URLString];
+        if ([req.URLString hasPrefix:@"http"] || [req.URLString hasPrefix:@"http"]) {
+            
+            URLString = req.URLString;
+
+        } else {
+        
+            URLString = [[NBNetworkConfig config].baseUrl stringByAppendingString:req.URLString];
+
+        }
         
     } else {
         
@@ -112,6 +120,12 @@
     req.task = task;
     req.error = nil;
     
+    /*
+     过滤： 1.先验证成功的过滤器，满足该请求成功
+           2.成功过滤器不满足，在验证异常过滤器
+     */
+    
+    
     //0.是否满则全局单一成功过滤,满足
     if (req.whetherSupportSuccessFilterByConfig && [NBNetworkConfig config].successFilter) {
         
@@ -143,32 +157,21 @@
     }
     
     
-    //1.该请求允许全局的过滤
-    if (req.isFilterRespByConfig) {
+    //1.该请求允许全局的过滤  //解决需要统一处理的异常
+    if (req.whetherSupportAbnormalFilterByConfig && [NBNetworkConfig config].abnormalRespFilter) {
+        
         
         //检测是否存在需要过滤的内容
-         __block BOOL needFilter = NO;
-        [[NBNetworkConfig config].abnormalRespFilter enumerateObjectsUsingBlock:^(NBRespFilter * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([[NBNetworkConfig config].abnormalRespFilter checkResp:responseObject]) {
             
-            //网络返回是否满足过滤条件
-            if ([obj checkResp:responseObject]) {
-                
-                [obj filterAction];
-                needFilter = YES;
-                *stop = YES;
-            }
+            [NBNetworkConfig config].abnormalRespFilter.filterAction(nil,responseObject);
             
-            
-        }];
-        
-        if (needFilter) {
             //降级去执行失败的回调
             req.failure(req);
             [req clearCompletionBlock];
             return;
-            
         }
-        
+   
     }
     
     
@@ -211,12 +214,10 @@
     if (req.success) {
         
         req.success(req);
-        
+        [req clearCompletionBlock];
+
     }
 
-    [req clearCompletionBlock];
-    
-    
 }
 
 

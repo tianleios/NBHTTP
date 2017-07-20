@@ -24,7 +24,6 @@
         
     }
     
-    
     return resp[self.key];
     
 }

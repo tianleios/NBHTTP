@@ -26,25 +26,33 @@
     successFilter.value =  @"0";
     
     //
-    NBRespFilter *tokenOutOfTimeFilter = [[NBRespFilter alloc] init];
-    tokenOutOfTimeFilter.key =  @"errorCode";
-    tokenOutOfTimeFilter.value =  @"4";
-    [tokenOutOfTimeFilter setFilterAction:^{
+    NBRespFilter *abnormalFilter = [[NBRespFilter alloc] init];
+    abnormalFilter.key = @"errorInfo";
+    abnormalFilter.filterMsgKey = @"errorInfo";
+    
+    [abnormalFilter setFilterAction:^(NBRespFilter *filter, id responseObj){
         
+        
+        if ([filter.value isEqual:@"4"]) {
+            
+            NSLog(@"需要重新登录");
+            
+        } else {
+            
+            NSLog(@"%@",filter.filterMsg);
+        
+        }
         //通知用户重新登录
         
     }];
-    
-    //
-    NBRespFilter *otherFilter = [[NBRespFilter alloc] init];
-    otherFilter.key =  @"errorCode";
-    otherFilter.value =  @"4";
 
-    
     //
     NBNetworkConfig *config = [NBNetworkConfig config];
+    
     config.successFilter = successFilter;
-    [config.abnormalRespFilter addObjectsFromArray:@[tokenOutOfTimeFilter,otherFilter]];
+    config.abnormalRespFilter = abnormalFilter;
+    
+//    [config.abnormalRespFilter addObjectsFromArray:@[tokenOutOfTimeFilter]];
     
     
     //

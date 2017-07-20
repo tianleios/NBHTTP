@@ -83,7 +83,7 @@
         
     } failure:^(NBBatchReqest *batchRequest) {
         
-        
+        batchRequest.reqArray[0].error;
         
     }];
     

@@ -11,7 +11,7 @@
 @implementation NBNetworkConfig
 
 + (instancetype)config {
-
+    
     static NBNetworkConfig *config;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -22,20 +22,19 @@
     
     return config;
 
-    
 }
 
 
-- (NSMutableArray<NBRespFilter *> *)abnormalRespFilter {
-
-    if (!_abnormalRespFilter) {
-        
-        _abnormalRespFilter = [[NSMutableArray alloc] init];
-        
-    }
-    
-    return _abnormalRespFilter;
-
-}
+//- (NSMutableArray<NBRespFilter *> *)abnormalRespFilter {
+//
+//    if (!_abnormalRespFilter) {
+//        
+//        _abnormalRespFilter = [[NSMutableArray alloc] init];
+//        
+//    }
+//    
+//    return _abnormalRespFilter;
+//
+//}
 
 @end

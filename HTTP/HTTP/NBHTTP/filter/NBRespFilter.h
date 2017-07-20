@@ -30,12 +30,15 @@
 @property (nonatomic, copy, nonnull) NSString * key;
 @property (nonatomic, copy, nullable) id value;
 
-@property (nonatomic, copy)  void(^ _Nullable filterAction)();
+@property (nonatomic, copy) NSString *filterMsgKey;
+@property (nonatomic, copy) NSString *filterMsg;
+
+@property (nonatomic, copy)  void(^ filterAction)(NBRespFilter *,id responseObj);
 
 
 /**
    满足该条件，返回yes
  */
-- (BOOL)checkResp:(id)resp;
+- (BOOL)checkResp:(id )resp;
 
 @end
