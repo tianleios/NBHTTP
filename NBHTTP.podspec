@@ -24,9 +24,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.author             = { "tinaleios" => "tianleios@163.com" }
 
-  s.source       = { :git => "https://github.com/tianleios/NBHTTP.git", :tag => "tag_1.0.0" }
+  s.source       = { :git => "https://github.com/tianleios/NBHTTP.git", :commit => "6e3418c" }
   #s.source_files  = "HTTP/HTTP/NBHTTP", "HTTP/HTTP/NBHTTP/**/*.{h,m}"
-  s.source_files  = "NBHTTP", "NBHTTP/**/*"
+  s.source_files  = "NBHTTP", "NBHTTP/**/*.{h,m}"
 
   #s.dependency  "AFNetworking"
   #,"3.1.0"

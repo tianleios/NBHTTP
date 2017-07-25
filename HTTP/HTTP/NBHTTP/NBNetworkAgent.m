@@ -9,11 +9,11 @@
 #import "NBNetworkAgent.h"
 
 
-#if __has_include(<AFNetworking/AFNetworking.h>)
-#import <AFNetworking/AFNetworking.h>
-#else
-#import "AFNetworking.h"
-#endif
+//#if __has_include(<AFNetworking/AFNetworking.h>)
+//#import <AFNetworking/AFNetworking.h>
+//#else
+//#import "AFNetworking.h"
+//#endif
 
 //#import <AFNetworking/AFNetworking.h>
 #import "NBNetworkConfig.h"
@@ -37,7 +37,8 @@
 
 - (void)startReq:(__kindof NBBaseRequest *)req {
 
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    id manager = nil;
     
     //转换URLString
     NSString *URLString = nil;
