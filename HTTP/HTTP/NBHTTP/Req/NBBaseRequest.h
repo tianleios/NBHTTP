@@ -47,8 +47,8 @@ typedef void(^NBRequestCompletionBlock)(__kindof NBBaseRequest *request);
 /**
  是否接受 config 配置的结果过滤, default is YES. 全局的过滤
  */
-@property (nonatomic, assign) BOOL whetherSupportSuccessFilterByConfig;
-@property (nonatomic, assign) BOOL whetherSupportAbnormalFilterByConfig;
+//@property (nonatomic, assign) BOOL whetherSupportSuccessFilterByConfig;
+//@property (nonatomic, assign) BOOL whetherSupportAbnormalFilterByConfig;
 
 
 

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2E0306761F209E5C00565830 /* NBBatchReqest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0306661F209E5C00565830 /* NBBatchReqest.m */; };
-		2E0306771F209E5C00565830 /* NBRespFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0306691F209E5C00565830 /* NBRespFilter.m */; };
 		2E0306781F209E5C00565830 /* NBNetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E03066C1F209E5C00565830 /* NBNetworkAgent.m */; };
 		2E0306791F209E5C00565830 /* NBNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E03066E1F209E5C00565830 /* NBNetworkConfig.m */; };
 		2E03067A1F209E5C00565830 /* NBBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0306711F209E5C00565830 /* NBBaseRequest.m */; };
@@ -36,13 +35,13 @@
 		2EDC2CB11F2715FF0027A3FE /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2CA91F2715FF0027A3FE /* AFURLRequestSerialization.m */; };
 		2EDC2CB21F2715FF0027A3FE /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2CAB1F2715FF0027A3FE /* AFURLResponseSerialization.m */; };
 		2EDC2CB31F2715FF0027A3FE /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2CAD1F2715FF0027A3FE /* AFURLSessionManager.m */; };
+		6C036288EC920A1599256EF9 /* libPods-HTTP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C37EE6C59FEE055CDD063E0 /* libPods-HTTP.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2BFBC907D321394666C322F6 /* Pods-HTTP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HTTP.release.xcconfig"; path = "Pods/Target Support Files/Pods-HTTP/Pods-HTTP.release.xcconfig"; sourceTree = "<group>"; };
 		2E0306651F209E5C00565830 /* NBBatchReqest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBBatchReqest.h; sourceTree = "<group>"; };
 		2E0306661F209E5C00565830 /* NBBatchReqest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBBatchReqest.m; sourceTree = "<group>"; };
-		2E0306681F209E5C00565830 /* NBRespFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBRespFilter.h; sourceTree = "<group>"; };
-		2E0306691F209E5C00565830 /* NBRespFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBRespFilter.m; sourceTree = "<group>"; };
 		2E03066A1F209E5C00565830 /* NBNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBNetwork.h; sourceTree = "<group>"; };
 		2E03066B1F209E5C00565830 /* NBNetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBNetworkAgent.h; sourceTree = "<group>"; };
 		2E03066C1F209E5C00565830 /* NBNetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBNetworkAgent.m; sourceTree = "<group>"; };
@@ -98,6 +97,8 @@
 		2EDC2CAB1F2715FF0027A3FE /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		2EDC2CAC1F2715FF0027A3FE /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		2EDC2CAD1F2715FF0027A3FE /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		4C37EE6C59FEE055CDD063E0 /* libPods-HTTP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HTTP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5B233F564261D8C0AE9A3E9 /* Pods-HTTP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HTTP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HTTP/Pods-HTTP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,18 +106,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C036288EC920A1599256EF9 /* libPods-HTTP.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		076CC7B3D95853531C328C49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C37EE6C59FEE055CDD063E0 /* libPods-HTTP.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2E0306631F209E5B00565830 /* NBHTTP */ = {
 			isa = PBXGroup;
 			children = (
 				2EDC2CA01F2715FF0027A3FE /* AFNetworking */,
 				2E0306641F209E5C00565830 /* BatchReq */,
-				2E0306671F209E5C00565830 /* filter */,
 				2E03066A1F209E5C00565830 /* NBNetwork.h */,
 				2E03066B1F209E5C00565830 /* NBNetworkAgent.h */,
 				2E03066C1F209E5C00565830 /* NBNetworkAgent.m */,
@@ -134,15 +143,6 @@
 				2E0306661F209E5C00565830 /* NBBatchReqest.m */,
 			);
 			path = BatchReq;
-			sourceTree = "<group>";
-		};
-		2E0306671F209E5C00565830 /* filter */ = {
-			isa = PBXGroup;
-			children = (
-				2E0306681F209E5C00565830 /* NBRespFilter.h */,
-				2E0306691F209E5C00565830 /* NBRespFilter.m */,
-			);
-			path = filter;
 			sourceTree = "<group>";
 		};
 		2E03066F1F209E5C00565830 /* Req */ = {
@@ -189,6 +189,8 @@
 			children = (
 				2EBE461F1F0E22A50058BEC8 /* HTTP */,
 				2EBE461E1F0E22A50058BEC8 /* Products */,
+				F4D098235C0C9C6D8E8B5CEF /* Pods */,
+				076CC7B3D95853531C328C49 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -248,6 +250,15 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		F4D098235C0C9C6D8E8B5CEF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E5B233F564261D8C0AE9A3E9 /* Pods-HTTP.debug.xcconfig */,
+				2BFBC907D321394666C322F6 /* Pods-HTTP.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -255,9 +266,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2EBE46341F0E22A50058BEC8 /* Build configuration list for PBXNativeTarget "HTTP" */;
 			buildPhases = (
+				920802803F525CD0716BA759 /* [CP] Check Pods Manifest.lock */,
 				2EBE46191F0E22A50058BEC8 /* Sources */,
 				2EBE461A1F0E22A50058BEC8 /* Frameworks */,
 				2EBE461B1F0E22A50058BEC8 /* Resources */,
+				BC12A8DAF2A8B4B10A4095C7 /* [CP] Embed Pods Frameworks */,
+				1862E7DA68147B6F3CF238BF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -315,6 +329,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1862E7DA68147B6F3CF238BF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HTTP/Pods-HTTP-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		920802803F525CD0716BA759 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BC12A8DAF2A8B4B10A4095C7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HTTP/Pods-HTTP-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2EBE46191F0E22A50058BEC8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -323,7 +385,6 @@
 				2EBE46281F0E22A50058BEC8 /* ViewController.m in Sources */,
 				2E2B41801F14CF8900B5CBE7 /* YTKChainRequestAgent.m in Sources */,
 				2EBE46251F0E22A50058BEC8 /* AppDelegate.m in Sources */,
-				2E0306771F209E5C00565830 /* NBRespFilter.m in Sources */,
 				2E0306761F209E5C00565830 /* NBBatchReqest.m in Sources */,
 				2E2B41831F14CF8900B5CBE7 /* YTKNetworkPrivate.m in Sources */,
 				2EDC2CB31F2715FF0027A3FE /* AFURLSessionManager.m in Sources */,
@@ -463,6 +524,7 @@
 		};
 		2EBE46351F0E22A50058BEC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5B233F564261D8C0AE9A3E9 /* Pods-HTTP.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7K7EFNFZWL;
@@ -475,6 +537,7 @@
 		};
 		2EBE46361F0E22A50058BEC8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BFBC907D321394666C322F6 /* Pods-HTTP.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7K7EFNFZWL;

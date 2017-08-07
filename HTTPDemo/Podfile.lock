@@ -1,0 +1,38 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - NBHTTP (1.0.0):
+    - AFNetworking
+
+DEPENDENCIES:
+  - NBHTTP (from `../NBHTTP.podspec`)
+
+EXTERNAL SOURCES:
+  NBHTTP:
+    :podspec: "../NBHTTP.podspec"
+
+CHECKOUT OPTIONS:
+  NBHTTP:
+    :commit: 303d2eb5466098fe5dffbd201156e90eb6eeac27
+    :git: "/Users/tianlei/Desktop/NBHTTP/"
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  NBHTTP: 8a7a0dd3ef02cc653437b4517d93b1991be18d18
+
+PODFILE CHECKSUM: f7fdda6147ecc5b5f6026725685bd4c902bf1ed6
+
+COCOAPODS: 1.2.1

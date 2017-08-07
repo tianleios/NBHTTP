@@ -1,15 +1,12 @@
 //
 //  AppDelegate.m
-//  HTTP
+//  HTTPDemo
 //
-//  Created by  tianlei on 2017/7/6.
+//  Created by  tianlei on 2017/8/7.
 //  Copyright © 2017年  tianlei. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
-
-#import "NBNetwork.h"
 
 @interface AppDelegate ()
 
@@ -19,45 +16,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    //
-//    NBRespFilter *successFilter = [[NBRespFilter alloc] init];
-//    successFilter.key =  @"errorCode";
-//    successFilter.value =  @"0";
-//    
-//    //
-//    NBRespFilter *abnormalFilter = [[NBRespFilter alloc] init];
-//    abnormalFilter.key = @"errorInfo";
-//    abnormalFilter.filterMsgKey = @"errorInfo";
-//    
-//    [abnormalFilter setFilterAction:^(NBRespFilter *filter, id responseObj){
-//        
-//        
-//        if ([filter.value isEqual:@"4"]) {
-//            
-//            NSLog(@"需要重新登录");
-//            
-//        } else {
-//            
-//            NSLog(@"%@",filter.filterMsg);
-//        
-//        }
-//        //通知用户重新登录
-//        
-//    }];
-
-    //
-    NBNetworkConfig *config = [NBNetworkConfig config];
-    
-//    config.successFilter = successFilter;
-//    config.abnormalRespFilter = abnormalFilter;
-    
-//    [config.abnormalRespFilter addObjectsFromArray:@[tokenOutOfTimeFilter]];
-    
-    
-    //
+    // Override point for customization after application launch.
     return YES;
-    
 }
 
 

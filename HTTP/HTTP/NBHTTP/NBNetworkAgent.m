@@ -15,10 +15,11 @@
 //#import "AFNetworking.h"
 //#endif
 
-//#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFNetworking.h>
 #import "NBNetworkConfig.h"
-#import "NBRespFilter.h"
+//#import "NBRespFilter.h"
 #import "NBBaseRequest.h"
+#import "NBCDRequest.h"
 
 @implementation NBNetworkAgent
 
@@ -79,6 +80,7 @@
         
         case NBRequestMethodPOST: {
         
+//            [manager POSt];
             [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
                 [self handleSuccessWithReq:req task:task responseObject:responseObject];
@@ -134,85 +136,14 @@
            2.成功过滤器不满足，在验证异常过滤器
      */
     
-    
     //0.是否满则全局单一成功过滤,满足
-    if (req.whetherSupportSuccessFilterByConfig && [NBNetworkConfig config].successFilter) {
+    if ([req isKindOfClass:[NBCDRequest class]]) {
+        //我方请求
         
-      [NBNetworkConfig config].successFilter.filterAction = nil;
-      BOOL filterSuccess =  [[NBNetworkConfig config].successFilter checkResp:responseObject];
-        
-        if (filterSuccess) {
-            
-       
-            if (!req.ignoreCache) {
-                
-                [req saveCache];
-                
-            }
-            
-            
-            if (req.success) {
-                
-                req.success(req);
-                
-            }
-            
-            
-            [req clearCompletionBlock];
-            
-        }
         
         return;
     }
     
-    
-    //1.该请求允许全局的过滤  //解决需要统一处理的异常
-    if (req.whetherSupportAbnormalFilterByConfig && [NBNetworkConfig config].abnormalRespFilter) {
-        
-        
-        //检测是否存在需要过滤的内容
-        if ([[NBNetworkConfig config].abnormalRespFilter checkResp:responseObject]) {
-            
-            [NBNetworkConfig config].abnormalRespFilter.filterAction(nil,responseObject);
-            
-            //降级去执行失败的回调
-            req.failure(req);
-            [req clearCompletionBlock];
-            return;
-        }
-   
-    }
-    
-    
-    //2.单个请求设置的过滤条件筛选
-    if (req.respFilter) {
-        //检测是否存在需要过滤的内容
-        __block BOOL needFilter = NO;
-        [req.respFilter enumerateObjectsUsingBlock:^(NBRespFilter * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            //满足一个该请求就要被过滤
-            if ([obj checkResp:responseObject]) {
-                
-                [obj filterAction];
-                needFilter = YES;
-                *stop = YES;
-            }
-            
-            
-        }];
-        
-        if (needFilter) {
-            //降级去执行失败的回调
-            req.failure(req);
-            [req clearCompletionBlock];
-            return;
-            
-        }
-
-    }
-    
-    
-    //3.确定该请求不需要过滤
     if (!req.ignoreCache) {
         
         [req saveCache];
