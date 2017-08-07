@@ -25,8 +25,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.author             = { "tinaleios" => "tianleios@163.com" }
 
-  s.source       = { :git => "https://github.com/tianleios/NBHTTP.git", :tag => s.version }
-  #s.source       = { :git => "/Users/tianlei/Desktop/NBHTTP/"}
+  s.source       = { :git => "https://github.com/tianleios/NBHTTP.git", :tag => s.version.to_s }
+  #s.source       = { :git => "/Users/tianlei/Desktop/NBHTTP/", :tag => s.version.to_s}
   
   s.source_files  = "HTTP/HTTP/NBHTTP", "HTTP/HTTP/NBHTTP/**/*.{h,m}"
   #s.source_files  = "NBHTTP", "NBHTTP/**/*.{h,m}"
