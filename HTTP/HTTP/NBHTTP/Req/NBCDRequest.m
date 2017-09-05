@@ -11,10 +11,18 @@
 
 @implementation NBCDRequest
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.HTTPMethod = NBRequestMethodPOST;
+    }
+    return self;
+}
 #pragma mark- Over
 - (void)start {
 
-    if (!self.URLString || !self.code) {
+    if (!self.URLString && !self.code) {
         
         @throw [NSException exceptionWithName:@"URLString 和Code 都不能为空" reason:nil userInfo:nil];
         
@@ -56,7 +64,7 @@
         
     }
     
-    return self.parameters;
+    return dict;
     
 }
 @end

@@ -7,17 +7,8 @@
 //
 
 #import "NBNetworkAgent.h"
-
-
-//#if __has_include(<AFNetworking/AFNetworking.h>)
-//#import <AFNetworking/AFNetworking.h>
-//#else
-//#import "AFNetworking.h"
-//#endif
-
 #import <AFNetworking/AFNetworking.h>
 #import "NBNetworkConfig.h"
-//#import "NBRespFilter.h"
 #import "NBBaseRequest.h"
 #import "NBCDRequest.h"
 
@@ -36,33 +27,56 @@
     return agent;
 }
 
++ (AFHTTPSessionManager *)HTTPSessionManager
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    manager.requestSerializer.timeoutInterval = 30.0;
+    NSSet *set = manager.responseSerializer.acceptableContentTypes;
+    
+    set = [set setByAddingObject:@"text/plain"];
+    set = [set setByAddingObject:@"text/html"];
+    set = [set setByAddingObject:@"text/html"];
+    manager.responseSerializer.acceptableContentTypes = set;
+    manager.responseSerializer.acceptableContentTypes = [set setByAddingObject:@"text/plain"];
+    
+    return manager;
+}
+
 - (void)startReq:(__kindof NBBaseRequest *)req {
 
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    id manager = nil;
-    
+    AFHTTPSessionManager *manager = [NBNetworkAgent HTTPSessionManager];
+//    id manager = nil;
     //转换URLString
     NSString *URLString = nil;
     id parameters = req.parameters;
     
-    if ([NBNetworkConfig config].baseUrl) {
+    if ([req isKindOfClass:[NBCDRequest class]]) {
         
-        if ([req.URLString hasPrefix:@"http"] || [req.URLString hasPrefix:@"http"]) {
-            
-            URLString = req.URLString;
-
-        } else {
-        
-            URLString = [[NBNetworkConfig config].baseUrl stringByAppendingString:req.URLString];
-
-        }
+        URLString = [NBNetworkConfig config].baseUrl;
         
     } else {
-        
-        URLString = req.URLString;
-        
+    
+        if ([NBNetworkConfig config].baseUrl) {
+            
+            if ([req.URLString hasPrefix:@"http"] || [req.URLString hasPrefix:@"https"]) {
+                
+                URLString = req.URLString;
+                
+            } else {
+                
+                URLString = [[NBNetworkConfig config].baseUrl stringByAppendingString:req.URLString];
+                
+            }
+            
+        } else {
+            
+            URLString = req.URLString;
+            
+        }
+    
     }
-
     
     //转换parameters
     if ([req respondsToSelector:@selector(convertParameters)]) {
@@ -74,13 +88,14 @@
         @throw [NSException exceptionWithName:@"请实现 convertParameters 方法" reason:nil userInfo:nil];
     
     }
-    
+//    NSLog(@"%@\n%@",URLString,parameters);
     //请求
+    
+    //此处请求开始的回调
     switch (req.HTTPMethod) {
         
         case NBRequestMethodPOST: {
         
-//            [manager POSt];
             [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
                 [self handleSuccessWithReq:req task:task responseObject:responseObject];
@@ -91,8 +106,7 @@
 
 
             }];
-     
-            
+           
         }  break;
         
             
@@ -109,10 +123,9 @@
                 
             }];
           
-            
         }  break;
 
-        
+        //
         default: {
         
             @throw [NSException exceptionWithName:@"不支持的请求方法" reason:nil userInfo:nil];
@@ -121,7 +134,6 @@
            
     }
     
- 
 }
 
 
@@ -131,17 +143,30 @@
     req.task = task;
     req.error = nil;
     
-    /*
-     过滤： 1.先验证成功的过滤器，满足该请求成功
-           2.成功过滤器不满足，在验证异常过滤器
-     */
+    //请求结束的回调
     
-    //0.是否满则全局单一成功过滤,满足
-    if ([req isKindOfClass:[NBCDRequest class]]) {
-        //我方请求
+    if (req.isHandleRespByDelegate) {
+       
+        //实现了代理让代理，去处理返回对象
+        if ([NBNetworkConfig config].respDelegate && [[NBNetworkConfig config].respDelegate respondsToSelector:@selector(handleHttpSuccessWithReq:task:resp:)]) {
+            
+            [[NBNetworkConfig config].respDelegate handleHttpSuccessWithReq:req task:task resp:responseObject];
+            
+        } else {
+            
+            @throw [NSException exceptionWithName:@"[NBNetworkConfig config].respDelegate 未发现代理" reason:@"[NBNetworkConfig config].respDelegate 为配置代理对象" userInfo:nil];
         
+        }
         
-        return;
+    } else {
+    
+       //无过滤，直接处理
+       if (req.success) {
+        
+          req.success(req);
+        
+       }
+        
     }
     
     if (!req.ignoreCache) {
@@ -150,13 +175,7 @@
         
     }
     
-    
-    if (req.success) {
-        
-        req.success(req);
-        [req clearCompletionBlock];
-
-    }
+    [req clearCompletionBlock];
 
 }
 
@@ -167,12 +186,31 @@
     req.task = task;
     req.error = error;
     
-    if (req.failure) {
+    //此处应先隐藏掉 进度指示，然后 进行alert 提示。SVProgressHUD dismiss 会把所有的dimiss掉
+    
+    if (req.isHandleRespByDelegate) {
         
-        req.failure(req);
+        //实现了代理让代理，去处理返回对象
+        if ([NBNetworkConfig config].respDelegate && [[NBNetworkConfig config].respDelegate respondsToSelector:@selector(handleHttpFailureWithReq:task:error:)]) {
+            
+            [[NBNetworkConfig config].respDelegate handleHttpFailureWithReq:req task:task error:error];
+            
+        } else {
+        
+            @throw [NSException exceptionWithName:@"[NBNetworkConfig config].respDelegate 未发现代理" reason:@"[NBNetworkConfig config].respDelegate 未配置代理对象" userInfo:nil];
+            
+        }
+        
+    } else {
+    
+        if (req.failure) {
+            
+            req.failure(req);
+            
+        }
         
     }
-    
+
     //
     [req clearCompletionBlock];
 

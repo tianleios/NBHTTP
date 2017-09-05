@@ -12,8 +12,7 @@
 #import "NBRequest.h"
 #import "NBNetworkAgent.h"
 #import "NBBatchReqest.h"
-
-//#import "NBRespFilter.h"
+#import "NBCDRequest.h"
 #import "NBNetworkConfig.h"
 
 #endif /* NBNetwork_h */

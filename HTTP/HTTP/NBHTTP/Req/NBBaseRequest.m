@@ -18,8 +18,8 @@
     if (self = [super init]) {
         
         self.ignoreCache = YES;
-//        self.whetherSupportSuccessFilterByConfig = YES;
-//        self.whetherSupportAbnormalFilterByConfig = YES;
+        self.isHandleRespByDelegate = YES;
+
     }
     
     return self;
@@ -31,6 +31,7 @@
 
     [self setSuccess:success failure:failure];
     [self start];
+    
 }
 
 - (void)setSuccess:(NBRequestCompletionBlock)success failure:(NBRequestCompletionBlock)failure {
@@ -54,6 +55,16 @@
     
 }
 
+- (NSMutableDictionary<NSString *,id> *)parameters {
+
+    if (!_parameters) {
+        _parameters = [[NSMutableDictionary alloc] init];
+        
+    }
+    
+    return _parameters;
+}
+
 
 - (void)clearCompletionBlock {
     // nil out to break the retain cycle.
@@ -75,11 +86,15 @@
         return;
     }
     
-    id data = [NSKeyedArchiver archivedDataWithRootObject:self.responseObject];
-    
-    //保存,应该异步保存
-    [[NSFileManager defaultManager] createFileAtPath:[self filePath] contents:data attributes:nil];
-
+    //后台线程保存
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        id data = [NSKeyedArchiver archivedDataWithRootObject:self.responseObject];
+        
+        //保存,应该异步保存
+        [[NSFileManager defaultManager] createFileAtPath:[self filePath] contents:data attributes:nil];
+    });
+  
 }
 
 
@@ -112,13 +127,13 @@
 
 #pragma mark- 生成文件路径，包含名称
 - (NSString *)filePath {
-
-    NSString *requestInfo = [NSString stringWithFormat:@"HTTPMethod:%ld URL:%@ Argument:%@",self.HTTPMethod,[self convertParameters],self.URLString];
     
+    NSString *requestInfo = [NSString stringWithFormat:@"HTTPMethod:%ld URL:%@ Argument:%@",self.HTTPMethod,self.URLString,[self convertParameters]];
     NSString *fileName = [self md5StringFromString:requestInfo];
     NSString *filePath = [NSString stringWithFormat:@"%@/%@",[self cacheDirectoryPath],fileName];
     
     return filePath;
+    
 }
 
 #pragma mark- 缓存文件夹路径
