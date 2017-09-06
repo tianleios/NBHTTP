@@ -54,28 +54,51 @@
     
     if ([req isKindOfClass:[NBCDRequest class]]) {
         
-        URLString = [NBNetworkConfig config].baseUrl;
+        if (req.URLString && req.URLString.length > 0 && ([req.URLString hasPrefix:@"http"] || [req.URLString hasPrefix:@"https"])) {
+            
+            URLString = req.URLString;
+
+        } else {
+        
+            if (![NBNetworkConfig config].baseUrl || [NBNetworkConfig config].baseUrl.length <= 0) {
+                
+                @throw [NSException exceptionWithName:@"NBNetworkAgent 无法找到请求路径" reason:nil userInfo:nil];
+            }
+            
+            URLString = [NBNetworkConfig config].baseUrl;
+
+        }
         
     } else {
-    
-        if ([NBNetworkConfig config].baseUrl) {
+        
+        if (req.URLString && req.URLString.length > 0) {
             
             if ([req.URLString hasPrefix:@"http"] || [req.URLString hasPrefix:@"https"]) {
                 
                 URLString = req.URLString;
-                
+
             } else {
                 
+                if (![NBNetworkConfig config].baseUrl || [NBNetworkConfig config].baseUrl.length <= 0) {
+                    
+                    @throw [NSException exceptionWithName:@"NBNetworkAgent 无法找到请求路径" reason:nil userInfo:nil];
+                }
+            
                 URLString = [[NBNetworkConfig config].baseUrl stringByAppendingString:req.URLString];
-                
+
             }
             
         } else {
+
+            if (![NBNetworkConfig config].baseUrl || [NBNetworkConfig config].baseUrl.length <= 0) {
+                
+                @throw [NSException exceptionWithName:@"NBNetworkAgent 无法找到请求路径" reason:nil userInfo:nil];
+            }
             
-            URLString = req.URLString;
+            URLString = [NBNetworkConfig config].baseUrl;
             
         }
-    
+        
     }
     
     //转换parameters
@@ -88,8 +111,6 @@
         @throw [NSException exceptionWithName:@"请实现 convertParameters 方法" reason:nil userInfo:nil];
     
     }
-//    NSLog(@"%@\n%@",URLString,parameters);
-    //请求
     
     //此处请求开始的回调
     switch (req.HTTPMethod) {

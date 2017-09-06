@@ -41,6 +41,7 @@
 
 }
 
+#pragma mark- 子类
 - (void)start {
     
     if (!self.URLString) {

@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "NBHTTP"
-  s.version      = "3.0.0"
+  s.version      = "3.0.1"
   s.summary      = " NBHTTP. googogoogogoogoggoogog"
   s.description  = <<-DESC
                    not empty not empty not empty not empty not empty not empty not empty not empty not empty not empty 

@@ -8,5 +8,6 @@ target 'HTTP' do
   # Pods for HTTP
   
   pod 'AFNetworking', 3.1
+  pod 'SVProgressHUD'
 
 end
