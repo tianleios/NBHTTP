@@ -50,8 +50,9 @@
     
     self.nameArray = [[NSMutableArray alloc] init];
     
-    [self.nameArray addObject:@"CD 请求"];
+    [self.nameArray addObject:@"CD 请求(全部功能)"];
     [self.nameArray addObject:@"正常 请求"];
+    [self.nameArray addObject:@"CD 请求(部分功能)"];
 
 
 }
@@ -73,6 +74,7 @@
         } break;
         case 2: {
             
+            [self cdReq2];
             
         } break;
         case 3: {
@@ -90,9 +92,6 @@
 - (void)normalReq {
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     //
     NSSet *set = manager.responseSerializer.acceptableContentTypes;
     set = [set setByAddingObject:@"text/plain"];
@@ -106,11 +105,8 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        
     }];
     
-    
-
 }
 
 #pragma mark- 橙袋请求, 方式1
@@ -124,13 +120,6 @@
    
     //获取图片上传凭证的接口
     NBCDRequest *cdReq = [[NBCDRequest alloc] init];
-//    cdReq.code = @"805950";
-//    cdReq.parameters[@"bizType"] = @"805063";
-//    cdReq.parameters[@"kind"] = @"C";
-//    cdReq.parameters[@"mobile"] = @"13868074590";
-//    cdReq.parameters[@"companyCode"] = @"CD-CDZT000009";
-//    cdReq.parameters[@"systemCode"] = @"CD-CDZT000009";
-    
     cdReq.code = @"805806";
     cdReq.parameters[@"type"] = @"2";
     cdReq.parameters[@"companyCode"] = @"CD-CDZT000009";
@@ -169,16 +158,23 @@
     
     //获取图片上传凭证的接口
     NBCDRequest *cdReq = [[NBCDRequest alloc] init];
-    cdReq.URLString = @"";
-    cdReq.code = @"805951";
-    cdReq.parameters[@"companyCode"] = @"";
-    cdReq.parameters[@"systemCode"] = @"";
+    cdReq.URLString = @"http://118.178.124.16:3301/forward-service/api";
+    cdReq.code = @"805806";
+    cdReq.parameters[@"type"] = @"2";
+    cdReq.parameters[@"companyCode"] = @"CD-CDZT000009";
+    cdReq.parameters[@"systemCode"] = @"CD-CDZT000009";
+    //不对请求进行过滤
+    cdReq.isHandleRespByDelegate = NO;
+    
+    [SVProgressHUD showWithStatus:nil];
     [cdReq startWithSuccess:^(__kindof NBBaseRequest *request) {
         
-        id responseObject =  request.responseObject;
+        [SVProgressHUD dismiss];
+        id responseObject = request.responseObject;
         
     } failure:^(__kindof NBBaseRequest *request) {
         
+        [SVProgressHUD dismiss];
         NSError *error = request.error;
         
     }];

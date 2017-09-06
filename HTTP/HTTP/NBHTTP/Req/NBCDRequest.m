@@ -24,7 +24,7 @@
 
     if (!self.URLString && !self.code) {
         
-        @throw [NSException exceptionWithName:@"URLString 和Code 都不能为空" reason:nil userInfo:nil];
+        @throw [NSException exceptionWithName:@"URLString 和Code 不能同时为空" reason:nil userInfo:nil];
         
     }
 
